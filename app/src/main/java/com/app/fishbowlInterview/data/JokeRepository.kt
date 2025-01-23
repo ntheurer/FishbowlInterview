@@ -36,7 +36,6 @@ class JokeRepository @Inject constructor(
             }
 
             else -> {
-                //TODO improve error handling
                 listOf()
             }
         }

@@ -6,6 +6,7 @@
     <string name="favorite_nav_content_description">Go to Favorites</string>
     <string name="search_placeholder">Search Jokes</string>
     <string name="search">SEARCH</string>
+    <string name="no_jokes_found">No jokes found. Please try different filters and search criteria.</string>
 
     <!-- Joke Categories -->
     <string name="any">Any</string>
@@ -24,4 +25,5 @@
 
     <!-- Joke Favorites Screen -->
     <string name="favorites">Favorites</string>
+    <string name="no_favorites">No jokes have been favorited</string>
 </resources>

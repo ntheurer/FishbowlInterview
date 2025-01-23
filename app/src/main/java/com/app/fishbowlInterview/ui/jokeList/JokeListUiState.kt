@@ -5,7 +5,7 @@ import com.app.fishbowlInterview.data.models.JokeCategory
 
 data class JokeListUiState(
     val jokes: List<Joke> = listOf(),
-    val isLoading: Boolean = true, //todo: show loading state
+    val isLoading: Boolean = true,
     val currentFilter: JokeCategory = JokeCategory.ANY,
     val currentSearchTerm: String? = null
 )

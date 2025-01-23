@@ -16,8 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -39,12 +41,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
+import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.ui.favorites.JokeFavoritesScreen
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailScreen
 import com.app.fishbowlInterview.ui.theme.Grey100
 import com.app.fishbowlInterview.ui.theme.Grey12
 import com.app.fishbowlInterview.ui.theme.TextPrimary
+import com.app.fishbowlInterview.ui.theme.TextSecondary
 import com.app.fishbowlInterview.ui.theme.TextTertiary
 import kotlinx.serialization.Serializable
 
@@ -201,6 +205,41 @@ fun JokeListMain(
                             navController.navigate(JokeDetailScreen(jokeId = joke.id))
                         }
                 )
+            }
+            if (uiState.isLoading) {
+                item {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp)
+                    ) {
+                        CircularProgressIndicator(
+                            color = TextPrimary
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 8.dp, start = 16.dp)
+                                .background(Grey100)
+                        )
+                    }
+                }
+            }
+            if (!uiState.isLoading && uiState.jokes.isEmpty()) {
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.no_jokes_found),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextPrimary
+                        )
+                    }
+                }
             }
         }
     }

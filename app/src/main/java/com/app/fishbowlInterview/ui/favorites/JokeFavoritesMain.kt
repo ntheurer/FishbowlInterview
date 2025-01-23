@@ -3,6 +3,7 @@ package com.app.fishbowlInterview.ui.favorites
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -115,6 +116,21 @@ fun JokeFavoritesMain(
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
+                    }
+                    if (uiState.jokes.isEmpty() && !uiState.isLoading) {
+                        item {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.no_favorites),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = TextPrimary
+                                )
+                            }
+                        }
                     }
                 }
             }
