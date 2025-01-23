@@ -1,4 +1,4 @@
-package com.app.fishbowlInterview.data
+package com.app.fishbowlInterview.data.models
 
 enum class JokeType(val endpointValue: String) {
     SINGLE("single"),

@@ -1,5 +1,9 @@
-package com.app.fishbowlInterview.data
+package com.app.fishbowlInterview.di
 
+import com.app.fishbowlInterview.data.JokeService
+import com.app.fishbowlInterview.data.models.Joke
+import com.app.fishbowlInterview.data.models.JokeCategory
+import com.app.fishbowlInterview.data.models.JokeType
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

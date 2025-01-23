@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
-import com.app.fishbowlInterview.data.JokeCategory
+import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailScreen
 import com.app.fishbowlInterview.ui.theme.Grey100
 import com.app.fishbowlInterview.ui.theme.Grey12

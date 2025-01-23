@@ -1,5 +1,7 @@
 package com.app.fishbowlInterview.data
 
+import com.app.fishbowlInterview.data.models.Joke
+import com.app.fishbowlInterview.data.models.JokeCategory
 import javax.inject.Inject
 import javax.inject.Singleton
 

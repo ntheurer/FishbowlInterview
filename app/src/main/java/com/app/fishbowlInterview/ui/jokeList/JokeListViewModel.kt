@@ -2,7 +2,7 @@ package com.app.fishbowlInterview.ui.jokeList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.fishbowlInterview.data.JokeCategory
+import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.JokeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -14,9 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.app.fishbowlInterview.data.Joke
-import com.app.fishbowlInterview.data.JokeCategory
-import com.app.fishbowlInterview.data.JokeFlags
+import com.app.fishbowlInterview.data.models.Joke
+import com.app.fishbowlInterview.data.models.JokeCategory
+import com.app.fishbowlInterview.data.models.JokeFlags
 import com.app.fishbowlInterview.ui.theme.FishbowlInterviewTheme
 import com.app.fishbowlInterview.ui.theme.Grey100
 import com.app.fishbowlInterview.ui.theme.TextSecondary

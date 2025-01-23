@@ -1,4 +1,4 @@
-package com.app.fishbowlInterview.data
+package com.app.fishbowlInterview.data.models
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
