@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.androidx.room) apply false
 }

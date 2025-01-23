@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DropdownMenu
@@ -64,6 +67,7 @@ fun JokeListMain(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.systemBars)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -180,7 +184,7 @@ fun JokeListMain(
                 JokeEntry(
                     joke = joke,
                     onClick = {
-                        navController.navigate(JokeDetailScreen) //todo: use joke.id
+                        navController.navigate(JokeDetailScreen(jokeId = joke.id))
                     },
                     modifier = Modifier
                         .fillMaxWidth()

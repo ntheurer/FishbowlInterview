@@ -38,8 +38,7 @@ fun JokeEntry(
                 is Joke.TwoPartJoke -> joke.setup + "\n" + joke.delivery
             },
             style = MaterialTheme.typography.bodyMedium,
-            color = TextSecondary,
-            modifier = Modifier
+            color = TextSecondary
         )
         CategoryChip(
             category = joke.category,

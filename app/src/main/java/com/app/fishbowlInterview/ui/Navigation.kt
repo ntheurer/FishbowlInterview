@@ -17,7 +17,7 @@ fun Navigation() {
             JokeListMain(navController)
         }
         composable<JokeDetailScreen> {
-            JokeDetailMain()
+            JokeDetailMain(navController)
         }
     }
 }

@@ -56,7 +56,7 @@ class JokeListViewModel @Inject constructor(
     }
 
     private suspend fun fetchJokes() {
-        val jokes = jokeRepository.getJokes(
+        val jokes = jokeRepository.fetchJokes(
             category = uiState.value.currentFilter,
             searchTerm = uiState.value.currentSearchTerm
         )

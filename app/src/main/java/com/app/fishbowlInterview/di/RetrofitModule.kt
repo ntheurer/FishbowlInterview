@@ -1,6 +1,9 @@
 package com.app.fishbowlInterview.di
 
+import android.content.Context
+import androidx.room.Room
 import com.app.fishbowlInterview.data.JokeService
+import com.app.fishbowlInterview.data.database.AppDatabase
 import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.models.JokeType
@@ -10,6 +13,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -50,4 +54,16 @@ object RetrofitModule {
     fun provideJokeService(
         retrofit: Retrofit
     ): JokeService = retrofit.create(JokeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDB(
+        @ApplicationContext context: Context
+    ): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "database"
+        ).build()
+    }
 }
