@@ -21,6 +21,7 @@ import com.app.fishbowlInterview.ui.theme.TextPrimary
 @Composable
 fun FilterOption(
     option: JokeCategory,
+    isHighlighted: Boolean,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -38,7 +39,11 @@ fun FilterOption(
         Icon(
             painter = painterResource(option.icon),
             contentDescription = null,
-            tint = GreyDark,
+            tint = if (isHighlighted) {
+                TextPrimary
+            } else {
+                GreyDark
+            },
             modifier = Modifier
                 .width(24.dp)
         )

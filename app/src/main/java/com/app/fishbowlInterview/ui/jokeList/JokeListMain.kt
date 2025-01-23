@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -105,13 +106,23 @@ fun JokeListMain(
                             text = {
                                 FilterOption(
                                     option = option,
+                                    isHighlighted = option == uiState.currentFilter,
                                     modifier = Modifier.fillMaxWidth()
                                 )
                             },
                             onClick = {
                                 viewModel.filter(option)
                                 dropdownExpanded = false
-                            }
+                            },
+                            contentPadding = PaddingValues(0.dp),
+                            modifier = Modifier
+                                .background(
+                                    if (option == uiState.currentFilter) {
+                                        Grey100
+                                    } else {
+                                        MaterialTheme.colorScheme.background
+                                    }
+                                )
                         )
                     }
                 }
