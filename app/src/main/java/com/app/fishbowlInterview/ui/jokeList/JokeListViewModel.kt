@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.JokeRepository
+import com.app.fishbowlInterview.data.models.JokeError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,15 +57,59 @@ class JokeListViewModel @Inject constructor(
     }
 
     private suspend fun fetchJokes() {
-        val jokes = jokeRepository.fetchJokes(
+        jokeRepository.fetchJokes(
             category = uiState.value.currentFilter,
-            searchTerm = uiState.value.currentSearchTerm
-        )
-        _uiState.update {
-            it.copy(
-                jokes = jokes,
+            searchTerm = uiState.value.currentSearchTerm,
+            handleError = ::handleError
+        )?.let { jokes ->
+            _uiState.update { state ->
+                val oldJokeMap = state.jokes.associateBy { it.id }
+                val newJokeMap = jokes.associateBy { it.id }
+                if (oldJokeMap.keys.containsAll(newJokeMap.keys)) {
+                    // Pause future calls to the backend since we have fetched all the jokes available
+                    state.copy(
+                        isLoading = false,
+                        pausePagination = true,
+                        errorMessage = null
+                    )
+                } else {
+                    state.copy(
+                        jokes = (state.jokes + jokes).associateBy { it.id }.values.toList(),
+                        isLoading = false,
+                        pausePagination = false,
+                        errorMessage = null
+                    )
+                }
+            }
+        }
+    }
+
+    private fun handleError(error: JokeError) {
+        val errorMessage = if (uiState.value.jokes.isNotEmpty()) {
+            // Only show an error message if there are no jokes to be shown
+            "Error: " + (error.message ?: "A server error was encountered. Please try again later")
+        } else {
+            null
+        }
+        _uiState.update { state ->
+            state.copy(
+                pausePagination = true,
+                errorMessage = errorMessage,
                 isLoading = false
             )
+        }
+    }
+
+    fun fetchMoreItems() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                )
+            }
+            // Note: with more time this could be improved by using some sort of cursor
+            // so we can continue fetching 25 more jokes each time instead of possible repeats
+            fetchJokes()
         }
     }
 }

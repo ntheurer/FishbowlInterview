@@ -7,5 +7,7 @@ data class JokeListUiState(
     val jokes: List<Joke> = listOf(),
     val isLoading: Boolean = true,
     val currentFilter: JokeCategory = JokeCategory.ANY,
-    val currentSearchTerm: String? = null
+    val currentSearchTerm: String? = null,
+    val errorMessage: String? = null,
+    val pausePagination: Boolean = false
 )

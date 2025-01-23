@@ -2,6 +2,7 @@ package com.app.fishbowlInterview.ui.jokeList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,12 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -64,6 +62,8 @@ fun JokeListMain(
     var searchTerm by remember {
         mutableStateOf("")
     }
+
+    val listState = rememberLazyListState()
 
     Scaffold(
         topBar = {
@@ -188,60 +188,25 @@ fun JokeListMain(
             }
         }
     ) { innerPadding ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding)
         ) {
-            items(
-                items = uiState.jokes,
-                key = { it.id }
-            ) { joke ->
-                JokeEntry(
-                    joke = joke,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            navController.navigate(JokeDetailScreen(jokeId = joke.id))
-                        }
-                )
-            }
-            if (uiState.isLoading) {
-                item {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp)
-                    ) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 8.dp, start = 16.dp)
-                                .background(MaterialTheme.colorScheme.surface)
-                        )
-                    }
-                }
-            }
-            if (!uiState.isLoading && uiState.jokes.isEmpty()) {
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.no_jokes_found),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                }
-            }
+            PaginatedLazyColumn(
+                jokes = uiState.jokes,
+                onJokeClicked = { jokeId ->
+                    navController.navigate(JokeDetailScreen(jokeId = jokeId))
+                },
+                loadMoreItems = viewModel::fetchMoreItems,
+                listState = listState,
+                isLoading = { uiState.isLoading },
+                pausePagination = { uiState.pausePagination },
+                getErrorMessage = { uiState.errorMessage },
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
     }
 }

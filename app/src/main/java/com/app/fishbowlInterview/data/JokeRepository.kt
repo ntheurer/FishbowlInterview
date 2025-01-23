@@ -4,6 +4,9 @@ import com.app.fishbowlInterview.data.database.AppDatabase
 import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.models.JokeEntity
+import com.app.fishbowlInterview.data.models.JokeError
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,13 +14,17 @@ import javax.inject.Singleton
 @Singleton
 class JokeRepository @Inject constructor(
     private val jokeService: JokeService,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    moshi: Moshi
 ) {
+    private val errorAdapter: JsonAdapter<JokeError> = moshi.adapter(JokeError::class.java)
+
     suspend fun fetchJokes(
         category: JokeCategory,
-        searchTerm: String?
-    ): List<Joke> {
-        // This could be improved to use a RemoteMediator and paging for infinite scrolling
+        searchTerm: String?,
+        handleError: (JokeError) -> Unit
+    ): List<Joke>? {
+        // This could be improved to use a cursor for paging for infinite scrolling
         val response = jokeService.getJokes(
             category = category.name,
             searchTerm = searchTerm
@@ -36,7 +43,16 @@ class JokeRepository @Inject constructor(
             }
 
             else -> {
-                listOf()
+                try {
+                    response.errorBody()?.string()?.let { errorBody ->
+                        errorAdapter.fromJson(errorBody)?.let {
+                            handleError(it)
+                        }
+                    }
+                } catch (exception: Exception) {
+                    // Nothing needed here, this is just to avoid a potential crash
+                }
+                null
             }
         }
     }
