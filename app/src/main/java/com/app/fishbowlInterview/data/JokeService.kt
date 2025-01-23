@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface JokeService {
-    @GET("joke/{category}?blacklistFlags=nsfw&amount=25")
+    @GET("joke/{category}?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&amount=25")
     suspend fun getJokes(
         @Path("category") category: String,
         @Query("contains") searchTerm: String?
