@@ -1,3 +1,5 @@
+# Requirements
+
 ## Overview
 We would like you to create a simple Android application that makes network calls to a [joke API](https://v2.jokeapi.dev) and displays them in a list. Additionally, the app should be able to view the joke on a detail screen.
 
@@ -61,3 +63,23 @@ Make sure to use the `safe-mode` parameter when using the API to make sure thing
 	- Each joke should be represented by the Joke Row component in the design
 	- Swiping on the row reveals a "unfavorite" action:
 		- Finishing the action removes the joke from the favorites list and removes the swiped row
+# Completed Product Screenshots
+![List](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/list.png)
+
+![List Dark](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/list_dark.png)
+
+![List Empty](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/list_empty.png)
+
+![Filter Dropdown](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/filter_dropdown.png)
+
+![Detail](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/detail.png)
+
+![Detail Favorited](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/detail_favorited.png)
+
+![Detail Dark](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/detail_dark.png)
+
+![Favorites](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/favorites.png)
+
+![Favorites Empty](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/favorites_empty.png)
+
+![Favorites Dark](https://raw.githubusercontent.com/ntheurer/FishbowlInterview/refs/heads/main/assets/favorites_dark.png)
