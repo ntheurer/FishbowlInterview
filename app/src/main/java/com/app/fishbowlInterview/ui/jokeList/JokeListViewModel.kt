@@ -1,5 +1,6 @@
 package com.app.fishbowlInterview.ui.jokeList
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.fishbowlInterview.data.models.JokeCategory
@@ -56,7 +57,8 @@ class JokeListViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchJokes() {
+    @VisibleForTesting
+    suspend fun fetchJokes() {
         jokeRepository.fetchJokes(
             category = uiState.value.currentFilter,
             searchTerm = uiState.value.currentSearchTerm,
@@ -84,8 +86,9 @@ class JokeListViewModel @Inject constructor(
         }
     }
 
-    private fun handleError(error: JokeError) {
-        val errorMessage = if (uiState.value.jokes.isNotEmpty()) {
+    @VisibleForTesting
+    fun handleError(error: JokeError) {
+        val errorMessage = if (uiState.value.jokes.isEmpty()) {
             // Only show an error message if there are no jokes to be shown
             "Error: " + (error.message ?: "A server error was encountered. Please try again later")
         } else {
