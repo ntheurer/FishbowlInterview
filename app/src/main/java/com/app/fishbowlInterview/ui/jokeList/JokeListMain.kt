@@ -146,7 +146,7 @@ fun JokeListMain(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 11.dp, start = 10.dp, end = 12.dp, bottom = 15.dp)
+                        .padding(top = 11.dp, start = 10.dp, end = 12.dp)
                 ) {
                     OutlinedTextField(
                         value = searchTerm,
