@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">FishbowlInterview</string>
+    <string name="jokes">Jokes</string>
+    <string name="filter_content_description">Filter by joke type</string>
+    <string name="favorite_nav_content_description">Go to Favorites</string>
+    <string name="search_placeholder">Search Jokes</string>
+    <string name="search">SEARCH</string>
+
+    <string name="any">Any</string>
+    <string name="misc">Misc</string>
+    <string name="programming">Programming</string>
+    <string name="christmas">Christmas</string>
+    <string name="pun">Pun</string>
+    <string name="dark">Dark</string>
+    <string name="spooky">Spooky</string>
 </resources>

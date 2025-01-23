@@ -2,6 +2,7 @@ package com.app.fishbowlInterview.ui.jokeList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.fishbowlInterview.data.JokeCategory
 import com.app.fishbowlInterview.data.JokeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,26 @@ class JokeListViewModel @Inject constructor(
                     isLoading = false
                 )
             }
+        }
+    }
+
+    fun search(searchTerm: String) {
+        if (searchTerm.isBlank()) {
+            return
+        }
+        //todo
+    }
+
+    fun filter(category: JokeCategory) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.update {
+                it.copy(
+                    jokes = emptyList(),
+                    isLoading = true,
+                    currentFilter = category
+                )
+            }
+            //todo
         }
     }
 }
