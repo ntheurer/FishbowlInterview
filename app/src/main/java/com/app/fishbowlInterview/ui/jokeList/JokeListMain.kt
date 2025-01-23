@@ -23,6 +23,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -64,131 +65,134 @@ fun JokeListMain(
         mutableStateOf("")
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.systemBars)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.jokes),
-                color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            BoxWithConstraints {
-                val dropdownWidth = maxWidth * 0.75f
-                Icon(
-                    painter = painterResource(uiState.currentFilter.icon),
-                    contentDescription = stringResource(R.string.filter_content_description),
-                    tint = MaterialTheme.colorScheme.onBackground,
+    Scaffold(
+        topBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+                    .windowInsetsPadding(WindowInsets.systemBars)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .width(24.dp)
-                        .clickable {
-                            dropdownExpanded = !dropdownExpanded
-                        }
-                )
-                DropdownMenu(
-                    expanded = dropdownExpanded,
-                    onDismissRequest = { dropdownExpanded = false },
-                    modifier = Modifier
-                        .width(dropdownWidth)
-                        .background(MaterialTheme.colorScheme.background)
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
-                    JokeCategory.entries.forEach { option ->
-                        DropdownMenuItem(
-                            text = {
-                                FilterOption(
-                                    option = option,
-                                    isHighlighted = option == uiState.currentFilter,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            },
-                            onClick = {
-                                viewModel.filter(option)
-                                dropdownExpanded = false
-                            },
-                            contentPadding = PaddingValues(0.dp),
+                    Text(
+                        text = stringResource(R.string.jokes),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    BoxWithConstraints {
+                        val dropdownWidth = maxWidth * 0.75f
+                        Icon(
+                            painter = painterResource(uiState.currentFilter.icon),
+                            contentDescription = stringResource(R.string.filter_content_description),
+                            tint = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
-                                .background(
-                                    if (option == uiState.currentFilter) {
-                                        MaterialTheme.colorScheme.surface
-                                    } else {
-                                        MaterialTheme.colorScheme.background
-                                    }
-                                )
+                                .width(24.dp)
+                                .clickable {
+                                    dropdownExpanded = !dropdownExpanded
+                                }
                         )
+                        DropdownMenu(
+                            expanded = dropdownExpanded,
+                            onDismissRequest = { dropdownExpanded = false },
+                            modifier = Modifier
+                                .width(dropdownWidth)
+                                .background(MaterialTheme.colorScheme.background)
+                        ) {
+                            JokeCategory.entries.forEach { option ->
+                                DropdownMenuItem(
+                                    text = {
+                                        FilterOption(
+                                            option = option,
+                                            isHighlighted = option == uiState.currentFilter,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    },
+                                    onClick = {
+                                        viewModel.filter(option)
+                                        dropdownExpanded = false
+                                    },
+                                    contentPadding = PaddingValues(0.dp),
+                                    modifier = Modifier
+                                        .background(
+                                            if (option == uiState.currentFilter) {
+                                                MaterialTheme.colorScheme.surface
+                                            } else {
+                                                MaterialTheme.colorScheme.background
+                                            }
+                                        )
+                                )
+                            }
+                        }
                     }
+                    Icon(
+                        painter = painterResource(R.drawable.heart),
+                        contentDescription = stringResource(R.string.favorite_nav_content_description),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .padding(start = 24.dp)
+                            .width(24.dp)
+                            .clickable {
+                                navController.navigate(JokeFavoritesScreen)
+                            }
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 11.dp, start = 10.dp, end = 12.dp, bottom = 15.dp)
+                ) {
+                    OutlinedTextField(
+                        value = searchTerm,
+                        onValueChange = { searchTerm = it },
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.search_placeholder),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.labelLarge
+                            )
+                        },
+                        singleLine = true,
+                        colors = TextFieldDefaults.colors(
+                            focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            cursorColor = MaterialTheme.colorScheme.onBackground,
+                            focusedIndicatorColor = MaterialTheme.colorScheme.outline,
+                            unfocusedIndicatorColor = MaterialTheme.colorScheme.outline,
+                            focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+                            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
+                        ),
+                        textStyle = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = stringResource(R.string.search),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .clickable {
+                                viewModel.search(searchTerm)
+                            }
+                            .padding(horizontal = 8.dp, vertical = 10.dp)
+                    )
                 }
             }
-            Icon(
-                painter = painterResource(R.drawable.heart),
-                contentDescription = stringResource(R.string.favorite_nav_content_description),
-                tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .padding(start = 24.dp)
-                    .width(24.dp)
-                    .clickable {
-                        navController.navigate(JokeFavoritesScreen)
-                    }
-            )
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(top = 11.dp, start = 10.dp, end = 12.dp, bottom = 15.dp)
-        ) {
-            OutlinedTextField(
-                value = searchTerm,
-                onValueChange = { searchTerm = it },
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.search_placeholder),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                },
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    cursorColor = MaterialTheme.colorScheme.onBackground,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.outline,
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.outline,
-                    focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
-                    unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
-                ),
-                textStyle = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = stringResource(R.string.search),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .clickable {
-                        viewModel.search(searchTerm)
-                    }
-                    .padding(horizontal = 8.dp, vertical = 10.dp)
-            )
-        }
-
+    ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+                .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+                .padding(innerPadding)
         ) {
             items(
                 items = uiState.jokes,
