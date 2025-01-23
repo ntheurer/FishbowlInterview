@@ -4,6 +4,7 @@ import com.app.fishbowlInterview.data.database.AppDatabase
 import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.models.JokeEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -50,4 +51,6 @@ class JokeRepository @Inject constructor(
             listOf(joke)
         )
     }
+
+    suspend fun watchFavoriteJokes(): Flow<List<JokeEntity>> = db.jokeDao().getFavoriteJokes()
 }

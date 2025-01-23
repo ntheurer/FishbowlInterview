@@ -1,7 +1,6 @@
 package com.app.fishbowlInterview.ui.jokeList
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,12 +23,10 @@ import com.app.fishbowlInterview.ui.theme.TextSecondary
 @Composable
 fun JokeEntry(
     joke: Joke,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
-            .clickable(onClick = onClick)
             .padding(start = 16.dp, top = 8.dp)
     ) {
         Text(
@@ -69,7 +66,6 @@ private fun SingleJokeEntryPreview() {
                     id = 1,
                     joke = "7 days without a pun makes one weak"
                 ),
-                onClick = {},
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -93,7 +89,6 @@ private fun TwoPartJokeEntryPreview() {
                     setup = "Did you know the first French fries weren't actually cooked in France",
                     delivery = "They were cooked in Greece"
                 ),
-                onClick = {},
                 modifier = Modifier.fillMaxWidth()
             )
         }

@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
 import com.app.fishbowlInterview.data.models.JokeCategory
+import com.app.fishbowlInterview.ui.favorites.JokeFavoritesScreen
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailScreen
 import com.app.fishbowlInterview.ui.theme.Grey100
 import com.app.fishbowlInterview.ui.theme.Grey12
@@ -134,7 +135,7 @@ fun JokeListMain(
                     .padding(start = 24.dp)
                     .width(24.dp)
                     .clickable {
-                        //todo: go to favorites screen
+                        navController.navigate(JokeFavoritesScreen)
                     }
             )
         }
@@ -194,11 +195,11 @@ fun JokeListMain(
             ) { joke ->
                 JokeEntry(
                     joke = joke,
-                    onClick = {
-                        navController.navigate(JokeDetailScreen(jokeId = joke.id))
-                    },
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable {
+                            navController.navigate(JokeDetailScreen(jokeId = joke.id))
+                        }
                 )
             }
         }

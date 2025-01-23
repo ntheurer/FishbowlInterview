@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.app.fishbowlInterview.ui.favorites.JokeFavoritesMain
+import com.app.fishbowlInterview.ui.favorites.JokeFavoritesScreen
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailMain
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailScreen
 import com.app.fishbowlInterview.ui.jokeList.JokeListMain
@@ -18,6 +20,9 @@ fun Navigation() {
         }
         composable<JokeDetailScreen> {
             JokeDetailMain(navController)
+        }
+        composable<JokeFavoritesScreen> {
+            JokeFavoritesMain(navController)
         }
     }
 }
