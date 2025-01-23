@@ -17,8 +17,6 @@ import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.data.models.JokeFlags
 import com.app.fishbowlInterview.ui.theme.FishbowlInterviewTheme
-import com.app.fishbowlInterview.ui.theme.Grey100
-import com.app.fishbowlInterview.ui.theme.TextSecondary
 
 @Composable
 fun JokeEntry(
@@ -35,7 +33,7 @@ fun JokeEntry(
                 is Joke.TwoPartJoke -> joke.setup + "\n" + joke.delivery
             },
             style = MaterialTheme.typography.bodyMedium,
-            color = TextSecondary
+            color = MaterialTheme.colorScheme.onBackground
         )
         CategoryChip(
             category = joke.category,
@@ -45,7 +43,7 @@ fun JokeEntry(
         HorizontalDivider(
             modifier = Modifier
                 .padding(top = 8.dp)
-                .background(Grey100)
+                .background(MaterialTheme.colorScheme.surface)
         )
     }
 }

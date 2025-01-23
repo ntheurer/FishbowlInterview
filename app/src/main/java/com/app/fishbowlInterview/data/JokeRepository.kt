@@ -17,7 +17,7 @@ class JokeRepository @Inject constructor(
         category: JokeCategory,
         searchTerm: String?
     ): List<Joke> {
-        //TODO: be able to change the endpoint call for paging
+        // This could be improved to use a RemoteMediator and paging for infinite scrolling
         val response = jokeService.getJokes(
             category = category.name,
             searchTerm = searchTerm

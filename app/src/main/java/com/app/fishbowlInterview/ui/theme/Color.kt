@@ -13,6 +13,8 @@ val Grey100 = Color(0xFFF5F5F5)
 val Grey12 = Color(0x1F000000)
 val GreyDark = Color(0xFF666666)
 
-val TextPrimary = Color(0xFF000000)
-val TextSecondary = Color(0xDE000000)
-val TextTertiary = Color(0x99000000)
+val TextPrimaryLight = Color(0xFF000000)
+val TextTertiaryLight = Color(0x99000000)
+
+val TextPrimaryDark = Color(0xFFFFFFFF)
+val TextTertiaryDark = Color(0x99FFFFFF)

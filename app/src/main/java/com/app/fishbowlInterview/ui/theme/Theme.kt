@@ -7,17 +7,22 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-//private val DarkColorScheme = darkColorScheme(
-//    primary = Purple80,
-//    secondary = PurpleGrey80,
-//    tertiary = Pink80
-//)
+private val DarkColorScheme = darkColorScheme(
+    background = Color.Black,
+    onBackground = TextPrimaryDark,
+    outline = Grey12,
+    outlineVariant = GreyDark,
+    surface = GreyDark,
+    onSurface = TextTertiaryDark
+)
 
 private val LightColorScheme = lightColorScheme(
-//    primary = Grey100,
-    onPrimary = TextPrimary,
     background = Color.White,
-    onBackground = TextPrimary,
+    onBackground = TextPrimaryLight,
+    outline = Grey12,
+    outlineVariant = GreyDark,
+    surface = Grey100,
+    onSurface = TextTertiaryLight
 )
 
 @Composable
@@ -28,7 +33,7 @@ fun FishbowlInterviewTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        darkTheme -> LightColorScheme // TODO: DarkColorScheme
+        darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 

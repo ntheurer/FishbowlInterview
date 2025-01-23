@@ -41,15 +41,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
-import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.data.models.JokeCategory
 import com.app.fishbowlInterview.ui.favorites.JokeFavoritesScreen
 import com.app.fishbowlInterview.ui.jokeDetail.JokeDetailScreen
-import com.app.fishbowlInterview.ui.theme.Grey100
-import com.app.fishbowlInterview.ui.theme.Grey12
-import com.app.fishbowlInterview.ui.theme.TextPrimary
-import com.app.fishbowlInterview.ui.theme.TextSecondary
-import com.app.fishbowlInterview.ui.theme.TextTertiary
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -79,12 +73,12 @@ fun JokeListMain(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Grey100)
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(16.dp)
         ) {
             Text(
                 text = stringResource(R.string.jokes),
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -93,6 +87,7 @@ fun JokeListMain(
                 Icon(
                     painter = painterResource(uiState.currentFilter.icon),
                     contentDescription = stringResource(R.string.filter_content_description),
+                    tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .width(24.dp)
                         .clickable {
@@ -123,7 +118,7 @@ fun JokeListMain(
                             modifier = Modifier
                                 .background(
                                     if (option == uiState.currentFilter) {
-                                        Grey100
+                                        MaterialTheme.colorScheme.surface
                                     } else {
                                         MaterialTheme.colorScheme.background
                                     }
@@ -135,6 +130,7 @@ fun JokeListMain(
             Icon(
                 painter = painterResource(R.drawable.heart),
                 contentDescription = stringResource(R.string.favorite_nav_content_description),
+                tint = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
                     .padding(start = 24.dp)
                     .width(24.dp)
@@ -147,7 +143,7 @@ fun JokeListMain(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Grey100)
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(top = 11.dp, start = 10.dp, end = 12.dp, bottom = 15.dp)
         ) {
             OutlinedTextField(
@@ -156,21 +152,21 @@ fun JokeListMain(
                 placeholder = {
                     Text(
                         text = stringResource(R.string.search_placeholder),
-                        color = TextTertiary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelLarge
                     )
                 },
                 singleLine = true,
                 colors = TextFieldDefaults.colors(
-                    focusedTextColor = TextPrimary,
-                    unfocusedTextColor = TextPrimary,
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
-                    cursorColor = TextPrimary,
-                    focusedIndicatorColor = Grey12,
-                    unfocusedIndicatorColor = Grey12,
-                    focusedPlaceholderColor = TextTertiary,
-                    unfocusedPlaceholderColor = TextTertiary
+                    cursorColor = MaterialTheme.colorScheme.onBackground,
+                    focusedIndicatorColor = MaterialTheme.colorScheme.outline,
+                    unfocusedIndicatorColor = MaterialTheme.colorScheme.outline,
+                    focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface
                 ),
                 textStyle = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.weight(1f)
@@ -179,7 +175,7 @@ fun JokeListMain(
                 text = stringResource(R.string.search),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleSmall,
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
                     .clickable {
                         viewModel.search(searchTerm)
@@ -192,6 +188,7 @@ fun JokeListMain(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             items(
                 items = uiState.jokes,
@@ -215,13 +212,13 @@ fun JokeListMain(
                             .padding(top = 8.dp)
                     ) {
                         CircularProgressIndicator(
-                            color = TextPrimary
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                         HorizontalDivider(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp, start = 16.dp)
-                                .background(Grey100)
+                                .background(MaterialTheme.colorScheme.surface)
                         )
                     }
                 }
@@ -236,7 +233,7 @@ fun JokeListMain(
                         Text(
                             text = stringResource(R.string.no_jokes_found),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = TextPrimary
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 }

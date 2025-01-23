@@ -15,8 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.app.fishbowlInterview.data.models.JokeCategory
-import com.app.fishbowlInterview.ui.theme.GreyDark
-import com.app.fishbowlInterview.ui.theme.TextPrimary
 
 @Composable
 fun FilterOption(
@@ -33,16 +31,16 @@ fun FilterOption(
         Text(
             text = stringResource(option.displayName),
             textAlign = TextAlign.Center,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.labelLarge
         )
         Icon(
             painter = painterResource(option.icon),
             contentDescription = null,
             tint = if (isHighlighted) {
-                TextPrimary
+                MaterialTheme.colorScheme.onBackground
             } else {
-                GreyDark
+                MaterialTheme.colorScheme.outlineVariant
             },
             modifier = Modifier
                 .width(24.dp)

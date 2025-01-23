@@ -40,9 +40,7 @@ import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
 import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.ui.jokeList.JokeEntry
-import com.app.fishbowlInterview.ui.theme.Grey100
 import com.app.fishbowlInterview.ui.theme.Red500
-import com.app.fishbowlInterview.ui.theme.TextPrimary
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -62,7 +60,7 @@ fun JokeFavoritesMain(
                 title = {
                     Text(
                         stringResource(R.string.favorites),
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.titleMedium
                     )
                 },
@@ -79,9 +77,9 @@ fun JokeFavoritesMain(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Grey100,
-                    navigationIconContentColor = TextPrimary,
-                    titleContentColor = TextPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
             )
         },
@@ -95,7 +93,7 @@ fun JokeFavoritesMain(
             ) {
                 if (uiState.isLoading) {
                     CircularProgressIndicator(
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 LazyColumn(
@@ -127,7 +125,7 @@ fun JokeFavoritesMain(
                                 Text(
                                     text = stringResource(R.string.no_favorites),
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = TextPrimary
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                             }
                         }

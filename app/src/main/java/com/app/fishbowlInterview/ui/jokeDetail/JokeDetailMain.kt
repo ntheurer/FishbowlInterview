@@ -34,8 +34,6 @@ import androidx.navigation.NavController
 import com.app.fishbowlInterview.R
 import com.app.fishbowlInterview.data.models.Joke
 import com.app.fishbowlInterview.ui.jokeList.CategoryChip
-import com.app.fishbowlInterview.ui.theme.Grey100
-import com.app.fishbowlInterview.ui.theme.TextPrimary
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -62,7 +60,7 @@ fun JokeDetailMain(
                 title = {
                     Text(
                         stringResource(R.string.joke),
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.titleMedium
                     )
                 },
@@ -79,9 +77,9 @@ fun JokeDetailMain(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Grey100,
-                    navigationIconContentColor = TextPrimary,
-                    titleContentColor = TextPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
             )
         },
@@ -103,14 +101,14 @@ fun JokeDetailMain(
                         Icon(
                             painter = painterResource(R.drawable.format_quote_open),
                             contentDescription = null,
-                            tint = TextPrimary,
+                            tint = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
                                 .width(37.dp)
                         )
                         Icon(
                             painter = painterResource(R.drawable.format_quote_close),
                             contentDescription = null,
-                            tint = TextPrimary,
+                            tint = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
                                 .width(37.dp)
                         )
@@ -121,7 +119,7 @@ fun JokeDetailMain(
                             is Joke.TwoPartJoke -> jokeInfo.joke.setup + "\n" + jokeInfo.joke.delivery
                         },
                         style = MaterialTheme.typography.bodyLarge,
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 11.dp)
@@ -151,7 +149,7 @@ fun JokeDetailMain(
                                     R.string.add_to_favorites
                                 }
                             ),
-                            tint = TextPrimary,
+                            tint = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
                                 .width(40.dp)
                                 .clickable {
@@ -161,7 +159,7 @@ fun JokeDetailMain(
                     }
                 } ?: run {
                     CircularProgressIndicator(
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
