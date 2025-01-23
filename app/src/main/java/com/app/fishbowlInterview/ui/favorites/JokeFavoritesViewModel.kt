@@ -3,6 +3,8 @@ package com.app.fishbowlInterview.ui.favorites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.fishbowlInterview.data.JokeRepository
+import com.app.fishbowlInterview.data.models.Joke
+import com.app.fishbowlInterview.data.models.JokeEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,23 @@ class JokeFavoritesViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun removeFavorite(joke: Joke) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+            jokeRepository.updateJokeInDb(
+                JokeEntity(
+                    id = joke.id,
+                    joke = joke,
+                    isFavorite = false
+                )
+            )
         }
     }
 }

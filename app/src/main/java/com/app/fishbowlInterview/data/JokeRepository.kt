@@ -52,5 +52,5 @@ class JokeRepository @Inject constructor(
         )
     }
 
-    suspend fun watchFavoriteJokes(): Flow<List<JokeEntity>> = db.jokeDao().getFavoriteJokes()
+    fun watchFavoriteJokes(): Flow<List<JokeEntity>> = db.jokeDao().getFavoriteJokes()
 }
