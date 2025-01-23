@@ -22,13 +22,7 @@ class JokeListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val jokes = jokeRepository.getJokes()
-            _uiState.update {
-                it.copy(
-                    jokes = jokes,
-                    isLoading = false
-                )
-            }
+            fetchJokes()
         }
     }
 
@@ -36,7 +30,16 @@ class JokeListViewModel @Inject constructor(
         if (searchTerm.isBlank()) {
             return
         }
-        //todo
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.update {
+                it.copy(
+                    jokes = emptyList(),
+                    isLoading = true,
+                    currentSearchTerm = searchTerm
+                )
+            }
+            fetchJokes()
+        }
     }
 
     fun filter(category: JokeCategory) {
@@ -48,7 +51,20 @@ class JokeListViewModel @Inject constructor(
                     currentFilter = category
                 )
             }
-            //todo
+            fetchJokes()
+        }
+    }
+
+    private suspend fun fetchJokes() {
+        val jokes = jokeRepository.getJokes(
+            category = uiState.value.currentFilter,
+            searchTerm = uiState.value.currentSearchTerm
+        )
+        _uiState.update {
+            it.copy(
+                jokes = jokes,
+                isLoading = false
+            )
         }
     }
 }
